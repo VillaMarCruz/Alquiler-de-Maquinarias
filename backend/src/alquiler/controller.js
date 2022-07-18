@@ -34,12 +34,12 @@ module.exports.AlquilerController = {
             if (!body || Object.keys(body).length === 0) {
                 Response.error(res, new CreateError.BadRequest());
             } else {
-                const days = AlquilerUtils.daysCalculate(body.fechaAlquiler, body.fechaEntrega);
-                const importe = AlquilerUtils.importeCalculate(body.maquinaria, days);
-                const descuento = AlquilerUtils.descuentoCalculate(importe, days);
-                const garantia = AlquilerUtils.garantiaCalculate(importe);
-                const total = AlquilerUtils.totalCalculate(importe, descuento);
-                const newAlquiler = {
+                let days = AlquilerUtils.daysCalculate(body.fechaAlquiler, body.fechaEntrega);
+                let importe = AlquilerUtils.importeCalculate(body.maquinaria, days);
+                let descuento = AlquilerUtils.descuentoCalculate(importe, days);
+                let garantia = AlquilerUtils.garantiaCalculate(importe);
+                let total = AlquilerUtils.totalCalculate(importe, descuento);
+                let newAlquiler = {
                     ...body,
                     days,
                     importe,
@@ -48,7 +48,7 @@ module.exports.AlquilerController = {
                     total
                 }
                 const insertedId = await AlquilerService.create(newAlquiler);
-                Response.success(res, 201, 'Alquiler creado', insertedId);
+                Response.success(res, 201, 'Alquiler creado', newAlquiler);
             }
         } catch (error) {
             debug(error);
@@ -57,21 +57,24 @@ module.exports.AlquilerController = {
     },
     update: async(req, res) => {
         try {
-            const { params: { id }, body } = req;
-
-            const days = AlquilerUtils.daysCalculate(body.fechaEntrega, body.fechaDevolucionReal);
-            const importeExtra = AlquilerUtils.importeCalculate(body.maquinaria, days);
-            const multa = AlquilerUtils.multaCalculate(importeExtra);
-            const newTotal = AlquilerUtils.totalCalculate(body.total, 0, multa)
+            let { params: { id }, body } = req;
+            let days = AlquilerUtils.daysCalculate(body.fechaEntrega, body.fechaDevolucionReal);
+            let importeExtra = AlquilerUtils.importeCalculate(body.maquinaria, days);
+            let multa = 0;
+            debug(importeExtra);
+            if (days > 0) {
+                multa = AlquilerUtils.multaCalculate(importeExtra);
+            }
+            let newTotal = AlquilerUtils.totalCalculate(body.total, 0, multa);
             delete body.total;
-            const updateAlquiler = {
+            let updateAlquiler = {
                 ...body,
                 multa,
                 total: newTotal
             }
 
-            const insertedId = await AlquilerService.update(id, updateAlquiler);
-            Response.success(res, 201, 'Alquiler creado', insertedId);
+            let updateId = await AlquilerService.update(id, updateAlquiler);
+            Response.success(res, 201, 'Alquiler actualizado', updateAlquiler);
         } catch (error) {
             debug(error);
             Response.error(res);

@@ -40,7 +40,12 @@
                 <div class="color-box light"></div>
             </div>
         </div>
+
         <div class="tabla-alquileres">
+
+            <div class="mb-3">
+                <button type="button" class="btnAlquiler btn btn-primary">Alquilar</button>
+            </div>
             <table id="tablaAlquileres" class="table">
                 <thead class="table-dark">
                     <tr class="text-center">
@@ -58,31 +63,12 @@
                     </tr>
                 </thead>
                 <tbody>
+
                 </tbody>
             </table>
-            <form class="form-alquiler">
-                <div>
-                    <label for="cliente">Cliente: </label>
-                    <input type="text" name="cliente" id="cliente" placeholder="Ej. Marlon Villamar Cruz">
-                </div>
-                <div>
-                    <label for="maquinaria">Maquinaria </label>
-                    <select name="maquinaria" id="maquinaria" class="maquinarias">
-                    </select>
-                </div>
-                <div>
-                    <label for="fechaAlquiler">Fecha Alquiler: </label>
-                    <input type="date" name="fechaAlquiler" id="fechaAlquiler">
-                </div>
-                <div>
-                    <label for="fechaEntrega">Fecha Entrega: </label>
-                    <input type="date" name="fechaEntrega" id="fechaEntrega">
-                </div>
-                <div>
-                    <button type="submit">Guardar</button>
-                    <button class="btnDevolver">Guardar</button>
-                </div>
-            </form>
+            <div id="notFound">
+
+            </div>
         </div>
     </div>
 
@@ -90,7 +76,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Devolución</h5>
+                    <h5 class="modal-title">Fecha de Devolución</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -109,12 +95,48 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalAlquiler">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Devolución</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-alquiler">
+                        <div class="mb-3">
+                            <label for="cliente" class="col-form-label">Cliente: </label>
+                            <input type="text" name="cliente" id="cliente" class="form-control" placeholder="Ej. Marlon Villamar Cruz">
+                        </div>
+                        <div class="mb-3">
+                            <label for="maquinaria" class="col-form-label">Maquinaria </label>
+                            <select name="maquinaria" id="maquinaria" class="maquinarias form-select">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaAlquiler" class="col-form-label">Fecha Alquiler: </label>
+                            <input type="date" name="fechaAlquiler" id="fechaAlquiler" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaEntrega" class="col-form-label">Fecha Entrega: </label>
+                            <input type="date" name="fechaEntrega" id="fechaEntrega" class="form-control">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/funciones.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/sweetAlert.js"></script>
+    <!-- <script src="js/sweetAlert.js"></script> -->
 </body>
 
 </html>

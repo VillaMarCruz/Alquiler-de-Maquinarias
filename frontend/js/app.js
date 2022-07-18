@@ -27,5 +27,3 @@ light.addEventListener("click", () => {
     sidebar.className = "sidebar light";
     activeListItem.className = "list-item light active";
 });
-
-$.getScript("funciones.js");
